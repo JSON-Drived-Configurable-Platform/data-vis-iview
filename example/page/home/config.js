@@ -23,6 +23,7 @@ export const config = [
                             },
                             'label':'地域分布',
                             'type':'pie',
+                            'dataZoom': '',
                             'data': [
                                 {value:335, name:'直接访问'},
                                 {value:310, name:'邮件营销'},
@@ -55,6 +56,7 @@ export const config = [
                         {
                             'label': '趋势图',
                             'type': 'line',
+                            'dataZoom': '1',
                             'columns': [
                                 ['2015-1', '2015-2', '2015-3', '2015-4', '2015-5', '2015-6', '2015-7', '2015-8', '2015-9', '2015-10', '2015-11'],
                                 ['2016-1', '2016-2', '2016-3', '2016-4', '2016-5', '2016-6', '2016-7', '2016-8', '2016-9', '2016-10', '2016-11', '2016-12']
@@ -111,6 +113,7 @@ export const config = [
                                 title: '标题2',
                                 content: '内容2'
                             },
+                            'dataZoom': '',
                             'label':'柱状图api2',
                             'type':'bar',
                             'api': '/chartBarApi'
@@ -128,6 +131,7 @@ export const config = [
                             },
                             'label':'饼图api',
                             'type':'pie',
+                            'dataZoom': '',
                             'api': '/chartPieApi'
                         },
                         {
@@ -135,6 +139,7 @@ export const config = [
                                 title: '标题2',
                                 content: '内容2'
                             },
+                            'dataZoom': '',
                             'label':'柱状图api',
                             'type':'bar',
                             'api': '/chartBarApi'
@@ -144,6 +149,7 @@ export const config = [
                                 title: '标题1',
                                 content: '内容1'
                             },
+                            'dataZoom': '',
                             'label':'饼图api1',
                             'type':'pie',
                             'api': '/chartPieApi1'
@@ -155,6 +161,7 @@ export const config = [
                             },
                             'label': '折线图api',
                             'type': 'line',
+                            'dataZoom': '1',
                             'api': '/chartLineApi'
                         },
                     ]
@@ -186,6 +193,7 @@ export const config = [
                             },
                             'label':'地域分布',
                             'type':'pie',
+                            'dataZoom': '',
                             'data': [
                                 {value:335, name:'直接访问'},
                                 {value:310, name:'邮件营销'},
@@ -199,6 +207,7 @@ export const config = [
                                 title: '标题1',
                                 content: '内容1'
                             },
+                            'dataZoom': '',
                             'label':'地域分布',
                             'type':'pie',
                             'data': [
@@ -229,6 +238,7 @@ export const config = [
                                 title: '标题2',
                                 content: '内容2'
                             },
+                            'dataZoom': '',
                             'label':'柱状图api2',
                             'type':'bar',
                             'api': '/chartBarApi'
@@ -278,6 +288,7 @@ export const config = [
                                 title: '标题1',
                                 content: '内容1'
                             },
+                            'dataZoom': '',
                             'label':'饼图api',
                             'type':'pie',
                             'api': '/chartPieApi'
