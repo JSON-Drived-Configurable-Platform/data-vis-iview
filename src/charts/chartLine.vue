@@ -186,14 +186,8 @@ export default {
                     {
                         show: true,
                         realtime: true,
-                        start: 65,
-                        end: 85
-                    },
-                    {
-                        type: 'inside',
-                        realtime: true,
-                        start: 65,
-                        end: 85
+                        start: 100,
+                        end: 0
                     }
                 ];
             }
