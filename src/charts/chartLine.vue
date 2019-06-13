@@ -181,7 +181,7 @@ export default {
                     return item;
                 })
             };
-            if (+this.chart.dataZoom === 1) {
+            if (this.chart.dataZoom) {
                 option.dataZoom = [
                     {
                         show: true,
