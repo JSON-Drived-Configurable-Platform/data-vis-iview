@@ -1,6 +1,6 @@
 export const config = [
     {
-        title: '整体趋势',
+        title: '整体趋势1',
         rows: [
             [
                 {
@@ -37,6 +37,13 @@ export const config = [
                             'type':'bar',
                             'columns': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                             'data': [120, 200, 150, 80, 70, 110, 130]
+                        },
+                        {
+                            'label':'新增用户-水平',
+                            'type':'bar',
+                            'direction': 'horizontal',
+                            'columns': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            'data': [120, 200, 150, 80, 70, 110, 130]
                         }
                     ]
                 },
@@ -65,46 +72,26 @@ export const config = [
                                 {
                                     name:'2015 邮件营销',
                                     groupName: '邮件营销',
+                                    xAxisIndex: 0,
                                     data:[120, 132, 101, 134, 90, 230, 210, 101, 134]
                                 },
                                 {
                                     name:'2016 邮件营销',
                                     groupName: '邮件营销',
+                                    xAxisIndex: 1,
                                     data:[150, 122, 121, 164, 100, 200, 200, 141, 134, 90, 230, 210]
                                 },
                                 {
                                     name:'2015 联盟广告',
                                     groupName: '联盟广告',
+                                    xAxisIndex: 0,
                                     data:[220, 182, 191, 234, 290, 330, 310, 101, 134, 90, 230]
                                 },
                                 {
                                     name:'2016 联盟广告',
                                     groupName: '联盟广告',
+                                    xAxisIndex: 1,
                                     data:[20, 82, 91, 34, 90, 30, 10, 1, 34, 90, 30, 10]
-                                },
-                                {
-                                    name:'2015 视频广告',
-                                    data:[150, 232, 201, 154, 190, 330, 410, 101, 134, 90, 230]
-                                },
-                                {
-                                    name:'2016 视频广告',
-                                    data:[250, 332, 301, 254, 290, 430, 510, 201, 34, 40, 230, 410]
-                                },
-                                {
-                                    name:'2015 视频广告1',
-                                    data:[150, 232, 201, 154, 190, 330, 410, 101, 134, 90, 230]
-                                },
-                                {
-                                    name:'2016 视频广告1',
-                                    data:[250, 332, 301, 254, 290, 430, 510, 201, 34, 40, 230, 410]
-                                },
-                                {
-                                    name:'2015 视频广告2',
-                                    data:[150, 232, 201, 154, 190, 330, 410, 101, 134, 90, 230]
-                                },
-                                {
-                                    name:'2016 视频广告2',
-                                    data:[250, 332, 301, 254, 290, 430, 510, 201, 34, 40, 230, 410]
                                 }
                             ]
                         },
@@ -117,6 +104,18 @@ export const config = [
                             'label':'柱状图api2',
                             'type':'bar',
                             'api': '/chartBarApi'
+                        },
+                        {
+                            'label':'用户转化',
+                            'type':'funnel',
+                            'columns':  ['展现','点击','访问','咨询','订单'],
+                            'data': [
+                                {value: 54, name: '访问'},
+                                {value: 12, name: '咨询'},
+                                {value: 5, name: '订单'},
+                                {value: 83, name: '点击'},
+                                {value: 100, name: '展现'}
+                            ]
                         }
                     ]
                 }
@@ -170,7 +169,7 @@ export const config = [
         ]
     },
     {
-        title: '整体趋势',
+        title: '整体趋势2',
         rows: [
             [
                 {
@@ -292,6 +291,20 @@ export const config = [
                             'label':'饼图api',
                             'type':'pie',
                             'api': '/chartPieApi'
+                        },
+                        {
+                            'label': '趋势图-大数值处理',
+                            'type': 'line',
+                            'columns': [
+                                ['2015-1', '2015-2', '2015-3', '2015-4', '2015-5', '2015-6', '2015-7', '2015-8', '2015-9', '2015-10', '2015-11']
+                            ],
+                            'data': [
+                                {
+                                    name:'2015 邮件营销',
+                                    groupName: '邮件营销',
+                                    data:[124135512, 132123412, 101121341, 134141234, 91241294, 230310492, 210801284, 101091940, 134123412]
+                                }
+                            ]
                         }
                     ]
                 }
@@ -299,7 +312,7 @@ export const config = [
         ]
     },
     {
-        title: '整体趋势',
+        title: '整体趋势3',
         rows: [
             [
                 {
@@ -309,6 +322,7 @@ export const config = [
                             'type':'table',
                             'hideElevator': true,
                             'hideSizer': true,
+                            'downloadAble': false,
                             'customColumns': ['name', 'age', 'address', 'money', 'name-1', 'age-1', 'address-1', 'money-1'],
                             // 'downLoadApi': '/tableDataDownLoad',
                             'columns': [
@@ -371,7 +385,7 @@ export const config = [
                                     age: 18,
                                     address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
                                     date: '2016-10-03',
-                                    money: 121212122112,
+                                    money: 121212122112.22223,
                                     'name-1': 'John Brown-api',
                                     'age-1': 18,
                                     'address-1': 'New York No. 1 Lake Park-api',
@@ -448,7 +462,7 @@ export const config = [
                                     'age-1': 18,
                                     'address-1': 'New York No. 1 Lake Park-api',
                                     'date-1': '2016-10-03',
-                                    'money-1': 121212122112
+                                    'money-1': 121212122112.22223
                                 },
                                 {
                                     name: 'John Brown-api',
@@ -467,7 +481,7 @@ export const config = [
                                     age: 18,
                                     address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
                                     date: '2016-10-03',
-                                    money: 121212122112,
+                                    money: null,
                                     'name-1': 'John Brown-api',
                                     'age-1': 18,
                                     'address-1': 'New York No. 1 Lake Park-api',
@@ -766,13 +780,14 @@ export const config = [
         ]
     },
     {
-        title: '整体趋势',
+        title: '整体趋势4',
         rows: [
             [
                 {
                     chartGroup: [
                         {
                             'type':'retain',
+                            'downloadAble': false,
                             'columns': [
                                 {
                                     title: '日期',
@@ -953,7 +968,7 @@ export const config = [
                         {
                             'label':'留存',
                             'type':'retain',
-                            'api': '/chartRetain'
+                            'api': '/chartRetainApi'
                         },
                     ]
                 }
@@ -961,7 +976,7 @@ export const config = [
         ]
     },
     {
-        title: '整体趋势',
+        title: '整体趋势5',
         tip: {
             title: '规则',
             content: '规则内容规则内容规则内容规则内容规则<br>内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容规则内容',
@@ -970,32 +985,21 @@ export const config = [
             [
                 {
                     display: 'inline',
-                    conditions: [
-                        {
-                            key: '100060',
-                            type: 'DatePicker',
-                            subType: 'date',
-                            model: 'date',
-                            placeholder: '',
-                            required: true,
-                            defaultValue: '2019-01-01'
-                        }
-                    ],
                     chartGroup: [
                         {
                             'type':'card',
                             'label': '新增用户',
-                            'api': '/chartCard'
+                            'api': '/chartCardApi'
                         },
                         {
                             'type':'card',
                             'label': '活跃用户',
-                            'api': '/chartCard'
+                            'api': '/chartCardApi'
                         },
                         {
                             'type':'card',
                             'label': '月活',
-                            'api': '/chartCard'
+                            'api': '/chartCardApi'
                         },
                         {
                             'type':'card',
@@ -1003,20 +1007,20 @@ export const config = [
                             'data': [
                                 {
                                     label: '新增用111户数',
-                                    value: '100000000',
+                                    value: 100000000.22,
                                     unit: '人',
                                     showChange: false,
                                 },
                                 {
                                     label: '日环比',
-                                    value: '3.95',
+                                    value: 3.95,
                                     unit: '%',
                                     showChange: true,
                                 },
 
                                 {
                                     label: '日环比',
-                                    value: '3.95',
+                                    value: 3.95,
                                     unit: '%',
                                     showChange: true,
                                 },

@@ -92,10 +92,13 @@ export default {
                     trigger: 'item',
                     formatter: '{a} <br/>{b} : {c} ({d}%)'
                 },
+                grid: {
+                    containLabel: true
+                },
                 series : [
                     {
-                        name:'访问来源',
-                        type:'pie',
+                        name: this.chart.label,
+                        type: 'pie',
                         radius : '55%',
                         center: ['50%', '50%'],
                         data: data.sort(function (a, b) { return a.value - b.value; }),

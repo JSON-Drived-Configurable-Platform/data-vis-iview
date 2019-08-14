@@ -34,13 +34,13 @@
 <script>
 import echarts from 'echarts';
 import tdTheme from './theme.json';
-import { on, off } from '../utils/utils';
+import { on, off, makeNumberReadable, roundNumber} from '../utils/utils';
 import dataGetter from '../mixins/dataGetter';
 import {classPrifix} from '../utils/const';
 echarts.registerTheme('tdTheme', tdTheme);
 
 export default {
-    name: 'ChartBar',
+    name: 'ChartLine',
     mixins: [dataGetter],
     props: {
         chart: {
@@ -79,7 +79,7 @@ export default {
             return origin.map(item => {
                 let length = item.data.length;
                 let gap = maxLength - length;
-                item.data = item.data.concat([...new Array(gap)].map(() => ''));
+                item.data = item.data.concat([...new Array(gap)].map(() => '-'));
                 return item;
             });
         },
@@ -150,12 +150,12 @@ export default {
                     width: '60%',
                     data: data.map(item => item.name)
                 },
-                // grid: {
-                //     left: '3%',
-                //     right: '4%',
-                //     bottom: '10%',
-                //     containLabel: true
-                // },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                grid: {
+                    containLabel: true
+                },
                 toolbox: {
                     top: '-1%',
                     right: '4%',
@@ -173,12 +173,19 @@ export default {
                 yAxis: {
                     type: 'value',
                     min: function(value) {
-                        return parseInt(value.min - value.min * 0.01);
+                        return roundNumber(parseInt(value.min - value.min * 0.01));
+                    },
+                    axisLabel: {
+                        formatter: function (value) {
+                            return makeNumberReadable(value);
+                        }
                     }
                 },
                 series: data.map(item => {
-                    item.type = 'line';
-                    return item;
+                    return {
+                        ...item,
+                        type: 'line'
+                    };
                 })
             };
             if (this.chart.dataZoom) {

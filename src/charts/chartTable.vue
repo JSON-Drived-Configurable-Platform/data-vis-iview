@@ -22,6 +22,7 @@
                 自定义列
             </Button>
             <Button
+                v-if="downloadAble"
                 size="small"
                 type="primary"
                 @click="handleDownloadClick"
@@ -77,11 +78,8 @@
 import dataGetter from '../mixins/dataGetter';
 import {classPrifix} from '../utils/const';
 import {xlsDownload} from '../utils/download';
+import {addCommas, isNumber, calculateTableCellWidth} from '../utils/utils';
 import expandRow from './expandRow.vue';
-const calculateWidth = function(str = '') {
-    str = str.toString().replace(/[\u4e00-\u9fa5]/g, '00');
-    return str.length * 6 + 40;
-};
 export default {
     name: 'ChartTable',
     mixins: [dataGetter],
@@ -134,6 +132,12 @@ export default {
         },
         showElevator() {
             return this.chart.hideElevator === undefined ? true : !this.chart.hideElevator;
+        },
+        downloadAble() {
+            if (this.chart.downloadAble === undefined) {
+                return true;
+            }
+            return this.chart.downloadAble;
         },
         columns() {
             let chartColumns = this.chartColumns || [];
@@ -195,7 +199,7 @@ export default {
         headerColumnsWidth() {
             let widths = {};
             this.columns.forEach(item => {
-                widths[item.key] = calculateWidth(item.title);
+                widths[item.key] = calculateTableCellWidth(item.title);
             });
             return widths;
         },
@@ -206,7 +210,7 @@ export default {
                     if (!widths[fieldName]) {
                         widths[fieldName] = 80;
                     }
-                    const width = calculateWidth(item[fieldName]);
+                    const width = calculateTableCellWidth(item[fieldName]);
                     widths[fieldName] = Math.max(widths[fieldName], width);
                 });
             });
@@ -239,7 +243,9 @@ export default {
                 if (item.type === 'expand') {
                     return item;
                 }
-                item.width = this.elWidth < totalWidth ? columnsWidth[item.key] : 'auto';
+                item.width = this.elWidth < totalWidth
+                    ? columnsWidth[item.key]
+                    : (this.elWidth / Object.keys(columnsWidth).length) < columnsWidth[item.key] ? columnsWidth[item.key] : 'auto';
                 // 如果是远程排序，则需要展示排序信息
                 if (sort.key && sort.key === item.key) {
                     item.sortType = sort.order || 'normal';
@@ -252,12 +258,18 @@ export default {
                     let value = params.row[key];
                     let text = value;
                     // 如果是整数
-                    if (Number.isInteger(value)) {
-                        text = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    if (isNumber(value)) {
+                        text = addCommas(value.toString());
                     }
+
                     // 如果有单位
                     if (item.unit) {
                         text = text + '' + params.column.unit;
+                    }
+
+                    // 如果为null, 则显示 '-', 不加单位
+                    if (value === null) {
+                        text = '-';
                     }
                     return h('span', {}, text);
                 };

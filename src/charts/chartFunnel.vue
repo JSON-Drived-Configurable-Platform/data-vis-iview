@@ -1,5 +1,5 @@
 <template>
-    <div :class="[loadingClasses, classes]">
+    <div :class="[loadingClasses, classes, displayClasses]">
         <Spin
             v-if="loading"
             :class="spinClasses"
@@ -18,10 +18,11 @@ import tdTheme from './theme.json';
 import { on, off } from '../utils/utils';
 import dataGetter from '../mixins/dataGetter';
 import {classPrifix} from '../utils/const';
+
 echarts.registerTheme('tdTheme', tdTheme);
 
 export default {
-    name: 'ChartBar',
+    name: 'ChartFunnel',
     mixins: [dataGetter],
     props: {
         chart: {
@@ -35,15 +36,22 @@ export default {
         return {
             loading: false,
             dom: null,
-            chartData: [],
             chartColumns: [],
+            chartData: []
         };
     },
     computed: {
         classes() {
             return [
                 `${classPrifix}-chart`,
-                `${classPrifix}-chart-bar`
+                `${classPrifix}-chart-funnel`
+            ];
+        },
+        displayClasses() {
+            return [
+                {
+                    [`${classPrifix}-hide`]: this.loading,
+                }
             ];
         },
         data() {
@@ -73,11 +81,9 @@ export default {
         },
         render() {
             const data = this.data;
-            const columns = this.columns;
-            const isHorizontal = this.chart.direction === 'horizontal';
             this.dom && this.dom.clear();
             this.dom = this.$refs.dom && echarts.init(this.$refs.dom, 'tdTheme');
-            if (columns.length === 0 || data.length === 0) {
+            if (data.length === 0) {
                 return;
             }
             let option = {
@@ -88,27 +94,50 @@ export default {
                         saveAsImage: {}
                     }
                 },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c}%'
+                },
                 grid: {
                     containLabel: true
                 },
-                xAxis: isHorizontal
-                    ? {
-                        type: 'value'
-                    } : {
-                        type: 'category',
-                        data: columns
-                    },
-                yAxis: isHorizontal
-                    ? {
-                        type: 'category',
-                        data: columns
-                    } : {
-                        type: 'value'
-                    },
-                series: [{
-                    data: data,
-                    type: 'bar'
-                }]
+                legend: {
+                    data: this.columns
+                },
+                calculable: true,
+                series: [
+                    {
+                        name: this.chart.label,
+                        type: 'funnel',
+                        min: 0,
+                        max: 100,
+                        minSize: '0%',
+                        maxSize: '100%',
+                        sort: 'descending',
+                        label: {
+                            show: true,
+                            position: 'ouside',
+                            formatter: '{b}: {c}%'
+                        },
+                        labelLine: {
+                            length: 10,
+                            lineStyle: {
+                                width: 1,
+                                type: 'solid'
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                fontSize: 14
+                            }
+                        },
+                        data: this.data,
+                        animationDuration: function (idx) {
+                            // 越往后的数据延迟越大
+                            return idx * 1000;
+                        }
+                    }
+                ],
             };
             this.dom && this.dom.setOption(option);
             on(window, 'resize', this.resize);
