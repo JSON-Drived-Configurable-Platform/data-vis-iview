@@ -55,7 +55,12 @@ export default {
             ];
         },
         dataset() {
-            return typeof this.chart.dataset === 'string' ? this.data || [] : this.chart.dataset || [];
+            if (this.chart.api && this.data) {
+                return this.data || [];
+            }
+            else {
+                return this.chart.dataset || [];
+            }
         }
     },
     mounted () {
@@ -75,7 +80,7 @@ export default {
             this.render();
         },
         render() {
-            const dataset = this.dataset;
+            const dataset = this.dataset || [];
             const chart = this.chart;
             this.dom && this.dom.clear();
             this.dom = this.$refs.dom && echarts.init(this.$refs.dom, 'chartTheme');
