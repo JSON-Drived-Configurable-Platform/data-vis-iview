@@ -5,8 +5,7 @@ const charts = [
         label: '折线图',
         xAxis: {type: 'category'},
         yAxis: {},
-        dataset: [],
-        api: '/chartLineApi',
+        dataset: '/chartLineDatasetApi',
         series: [
             {type: 'line'}
         ]

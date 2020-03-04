@@ -55,15 +55,14 @@ export default {
             ];
         },
         dataset() {
-            if (this.chart.api && this.data) {
-                return this.data || [];
-            }
-            else {
-                return this.chart.dataset || [];
-            }
+            return typeof this.chart.dataset === 'string' ? this.data || [] : this.chart.dataset || [];
         }
     },
     mounted () {
+        if (typeof this.chart.dataset === 'string') {
+            this.chart['api'] = this.chart.dataset;
+            this.getData();
+        }
         this.render();
         this.$watch('chart', () => {
             this.render();
