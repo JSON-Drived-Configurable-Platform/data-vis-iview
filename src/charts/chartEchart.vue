@@ -98,7 +98,11 @@ export default {
                     trigger: 'axis',
                 },
                 grid: {
-                    containLabel: true
+                    containLabel: true,
+                    x: '1%',
+                    right: '1%',
+                    top: '15%',
+                    bottom: '1%'
                 },
                 dataset,
                 series: chart.series.map(
