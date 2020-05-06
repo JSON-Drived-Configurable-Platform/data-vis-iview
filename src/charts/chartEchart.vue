@@ -97,7 +97,7 @@ export default {
                 tooltip : {
                     trigger: 'axis',
                 },
-                // 设置组件离容器距离等配置
+                // 设置组件离容器距离等配置 let right bottom top
                 grid: chart.grid !== undefined ? chart.grid : {containLabel: true},
                 dataset,
                 series: chart.series.map(
