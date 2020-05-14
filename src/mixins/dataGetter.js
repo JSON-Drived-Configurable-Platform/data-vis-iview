@@ -17,6 +17,11 @@ export default {
             default: ''
         },
     },
+    data() {
+        return {
+            errmsg: ''
+        }
+    },
     watch: {
         params: {
             handler: function (val) {
@@ -63,6 +68,7 @@ export default {
     },
     methods: {
         getData(params = {}) {
+            this.errmsg = '';
             this.loading = true;
             this.chartData = [];
             this.chartDataset = null;
