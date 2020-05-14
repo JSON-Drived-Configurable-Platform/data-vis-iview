@@ -6,7 +6,7 @@
             :class="spinClasses"
             size="large"
         />
-        <div class="dvis-ivu-chart-cn_middle" v-if="errmsg">{{errmsg}}</div>
+        <div v-if="errmsg" class="dvis-ivu-chart-cn_middle">{{ errmsg }}</div>
         <div
             ref="dom"
             :class="classes"

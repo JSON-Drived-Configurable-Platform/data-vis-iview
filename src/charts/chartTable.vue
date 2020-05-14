@@ -274,7 +274,7 @@ export default {
                         text = '-';
                     }
                     return h('span', {}, text);
-                })
+                });
                 return item;
             });
 

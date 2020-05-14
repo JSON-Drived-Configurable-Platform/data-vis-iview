@@ -141,5 +141,5 @@ export function getType(obj) {
  * @return {boolean}
  */
 export function isArray(obj) {
-    return getType(obj) === 'Array'
+    return getType(obj) === 'Array';
 }
