@@ -668,6 +668,7 @@ const searchCharts = [
         type: 'echart',
         label: '折线图',
         api: '/chartLineDatasetApi',
+        apiParams: ['date'],
         series: [
             {name: '第一周', type: 'line'},
         ],
@@ -682,18 +683,22 @@ const searchCharts = [
 const conditions = [
     {
         type: 'DatePicker',
-        subType: 'date',
+        subType: 'daterange',
         model: 'date',
         placeholder: '',
         required: true,
-        defaultValue: '2019-01-01'
+        defaultValue: ['2019-01-01', '2019-01031']
     }
 ];
 
 
 search.data = {
     charts: searchCharts,
-    conditions
+    conditions,
+    paramsContainer: {
+        username: 'bingblog',
+        date: '2019-01-01'
+    }
 };
 
 
@@ -703,6 +708,7 @@ const conditions = ${JSON.stringify(conditions, null, 4)};
 <template>
     <DataVisGroup
         :conditions="conditions"
+        :params-container="paramsContainer"
         :charts='charts'
     />
 </template>
