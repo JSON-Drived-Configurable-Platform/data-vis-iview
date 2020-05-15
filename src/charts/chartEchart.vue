@@ -24,7 +24,7 @@
 import echarts from 'echarts';
 import chartTheme from './theme.json';
 import chinaJson from 'echarts/map/json/china.json';
-import { on, off, isArray } from '../utils/utils';
+import { on, off } from '../utils/utils';
 import dataGetter from '../mixins/dataGetter';
 import {classPrifix} from '../utils/const';
 echarts.registerTheme('chartTheme', chartTheme);
@@ -58,7 +58,9 @@ export default {
             ];
         },
         data() {
-            return typeof this.chart.api === 'string' ? this.chartDataset || null : this.chart.dataset || null;
+            return (typeof this.chart.api === 'string' || typeof this.chart.dataset === 'string')
+                ? this.chartDataset || null
+                : this.chart.dataset || null;
         }
     },
     mounted () {
@@ -88,7 +90,7 @@ export default {
             // 数据为空时，不加载并且提示数据为空
             if (
                 Object.keys(dataset).length === 0
-                || (isArray(dataset.source) && dataset.source.length === 0)
+                || (Array.isArray(dataset.source) && dataset.source.length === 0)
             ) {
                 this.errmsg = '暂无数据';
                 return;
