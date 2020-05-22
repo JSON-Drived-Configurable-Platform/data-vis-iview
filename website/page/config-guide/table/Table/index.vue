@@ -29,9 +29,15 @@
                         </tr>
                         <tr>
                             <td>chart.downloadAble</td>
-                            <td>是否可下载</td>
+                            <td>是否可下载原始数据</td>
                             <td>boolean</td>
                             <td>true</td>
+                        </tr>
+                        <tr>
+                            <td>chart.downloadSortAble</td>
+                            <td>是否可下载排序后的数据</td>
+                            <td>boolean</td>
+                            <td>false</td>
                         </tr>
                         <tr>
                             <td>chart.customColumns</td>
