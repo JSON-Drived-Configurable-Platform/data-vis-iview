@@ -181,6 +181,16 @@ export default {
         }
     },
 
+    watch: {
+        charts(val) {
+            // 如果与上个长度不一致 下标为0 存入这个长度 与下一个做比较
+            if (val.length !== this.chartInfo[0]) {
+                this.index = 0;
+                this.chartInfo.splice(0, 1, val.length);
+            }
+        }
+    },
+
     created() {
         const conditions = this.conditions || [];
         const model = {};
