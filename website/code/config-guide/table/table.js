@@ -21,6 +21,13 @@ const chart = {
             defaultShow: false
         },
         {
+            title: '整型（不格式化）',
+            renderDisabled: true,
+            key: 'money',
+            sortable: true,
+            defaultShow: false
+        },
+        {
             title: 'Address-api',
             key: 'address',
             defaultShow: true
@@ -66,7 +73,7 @@ const chart = {
         {
             name: 'John Brown-api',
             age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            address: '内容1',
             date: '2016-10-03',
             money: 121212122112.22223,
             'name-1': 'John Brown-api',
@@ -78,7 +85,7 @@ const chart = {
         {
             name: 'John Brown-api',
             age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            address: '内容1',
             date: '2016-10-03',
             money: 121212122112,
             'name-1': 'John Brown-api',
@@ -90,7 +97,7 @@ const chart = {
         {
             name: 'John Brown-api',
             age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            address: '内容1',
             date: '2016-10-03',
             money: 121212122112,
             'name-1': 'John Brown-api',
@@ -102,7 +109,7 @@ const chart = {
         {
             name: 'John Brown-api',
             age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            address: '内容1',
             date: '2016-10-03',
             money: 121212122112,
             'name-1': 'John Brown-api',
@@ -114,7 +121,7 @@ const chart = {
         {
             name: 'John Brown-api',
             age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            address: '内容1',
             date: '2016-10-03',
             money: 121212122112,
             'name-1': 'John Brown-api',
