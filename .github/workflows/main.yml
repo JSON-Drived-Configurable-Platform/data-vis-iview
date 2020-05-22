@@ -30,9 +30,9 @@ jobs:
 
       # The project is then uploaded as an artifact named 'site'.
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v1
         with:
-          name: docs
+          name: site
           path: docs
 
   deploy:
@@ -46,9 +46,9 @@ jobs:
 
       # The built project is downloaded into the 'site' folder.
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v1
         with:
-          name: docs
+          name: site
 
       # Deploy
       - name: Deploy to GitHub Pages
@@ -56,4 +56,4 @@ jobs:
         with:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             BRANCH: gh-pages # The branch the action should deploy to.
-            FOLDER: "docs" # The folder the action should deploy.
+            FOLDER: "site" # The folder the action should deploy.
