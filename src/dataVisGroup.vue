@@ -208,6 +208,5 @@ export default {
             return `chart-${comType}`;
         }
     }
-
 };
 </script>
