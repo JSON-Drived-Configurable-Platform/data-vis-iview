@@ -8,6 +8,7 @@ const chart = {
     'hideSizer': true,
     'customColumns': ['name', 'age', 'address', 'money', 'name-1', 'age-1', 'address-1', 'money-1'],
     'downloadAble': true,
+    'downloadSortAble': true,
     'columns': [
         {
             title: 'Name-api',
@@ -28,7 +29,9 @@ const chart = {
         {
             title: 'Date-api',
             key: 'date',
-            defaultShow: true
+            defaultShow: true,
+            sortable: true,
+            sortType: 'desc'
         },
         {
             title: 'Money',
@@ -67,12 +70,12 @@ const chart = {
             name: 'John Brown-api',
             age: 18,
             address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-            date: '2016-10-03',
+            date: '2016-10-09',
             money: 121212122112.22223,
             'name-1': 'John Brown-api',
             'age-1': 18,
             'address-1': 'New York No. 1 Lake Park-api',
-            'date-1': '2016-10-03',
+            'date-1': '2016-10-09',
             'money-1': 121212122112
         },
         {
@@ -91,12 +94,12 @@ const chart = {
             name: 'John Brown-api',
             age: 18,
             address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-            date: '2016-10-03',
+            date: '2016-10-08',
             money: 121212122112,
             'name-1': 'John Brown-api',
             'age-1': 18,
             'address-1': 'New York No. 1 Lake Park-api',
-            'date-1': '2016-10-03',
+            'date-1': '2016-10-08',
             'money-1': 121212122112
         },
         {
@@ -115,12 +118,12 @@ const chart = {
             name: 'John Brown-api',
             age: 18,
             address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-            date: '2016-10-03',
+            date: '2016-10-02',
             money: 121212122112,
             'name-1': 'John Brown-api',
             'age-1': 18,
             'address-1': 'New York No. 1 Lake Park-api',
-            'date-1': '2016-10-03',
+            'date-1': '2016-10-02',
             'money-1': 121212122112
         }
     ]

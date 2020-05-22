@@ -29,6 +29,14 @@
             >
                 下载数据
             </Button>
+             <Button
+                v-if="downloadSortAble"
+                size="small"
+                type="primary"
+                @click="handleDownloadSortClick"
+            >
+                下载排序后数据
+            </Button>
         </h3>
         <Table
             ref="table"
@@ -138,6 +146,12 @@ export default {
                 return true;
             }
             return this.chart.downloadAble;
+        },
+        downloadSortAble() {
+            if (this.chart.downloadSortAble === undefined) {
+                return false;
+            }
+            return this.chart.downloadSortAble;
         },
         columns() {
             let chartColumns = this.chartColumns || [];
@@ -251,7 +265,7 @@ export default {
                     item.sortType = sort.order || 'normal';
                 }
                 else {
-                    item.sortType = 'normal';
+                    item.sortType = item.sortType || 'normal';
                 }
                 item.render = (h, params) => {
                     const key = params.column.key;
@@ -355,6 +369,13 @@ export default {
                 ];
                 xlsDownload(data, this.chart.label);
             }
+        },
+        handleDownloadSortClick() {
+            const label = this.chart.label;
+            this.$refs.table.exportCsv({
+                filename: label,
+                original: false
+            });
         },
         handleSortChange({key, order}) {
             this.sort = {
