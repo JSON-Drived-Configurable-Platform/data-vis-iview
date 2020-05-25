@@ -304,7 +304,7 @@ export default {
             }
             this.selectedCustomColumns = this.columns.filter(item => item.defaultShow !== false).map(item => item.key);
         },
-        total() {
+        data() {
             this.pageNum = 1;
         }
     },
