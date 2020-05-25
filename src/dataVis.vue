@@ -40,7 +40,7 @@
                     :params-container="paramsContainer"
                     :api-base="apiBase"
                     :request-interceptor="requestInterceptor"
-                    :typeIndex="typeIndex"
+                    :type-index="typeIndex"
                 />
             </div>
         </div>
