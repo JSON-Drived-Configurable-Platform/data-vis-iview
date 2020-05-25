@@ -40,7 +40,6 @@
                     :params-container="paramsContainer"
                     :api-base="apiBase"
                     :request-interceptor="requestInterceptor"
-                    :type-index="typeIndex"
                 />
             </div>
         </div>
@@ -75,10 +74,6 @@ export default {
         apiBase: {
             type: String,
             default: ''
-        },
-        typeIndex: {
-            type: Number,
-            default: -1
         }
     },
     data () {

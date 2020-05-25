@@ -27,12 +27,6 @@
                             <td>可选</td>
                         </tr>
                         <tr>
-                            <td>typeIndex</td>
-                            <td>一级大tab下标</td>
-                            <td>Number</td>
-                            <td>可选</td>
-                        </tr>
-                        <tr>
                             <td>tip</td>
                             <td>提示信息</td>
                             <td>Object</td>

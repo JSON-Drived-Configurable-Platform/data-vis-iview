@@ -118,10 +118,6 @@ export default {
         apiBase: {
             type: String,
             default: ''
-        },
-        typeIndex: {
-            type: Number,
-            default: -1
         }
     },
     data() {
@@ -186,26 +182,8 @@ export default {
     },
 
     watch: {
-        index(val) {
-            // index 变话 把对应typeIndex 作为key index为值存json
-            if (+this.typeIndex !== -1) {
-                this.mapJson[this.typeIndex] = val;
-            }
-        },
         charts() {
-            // 大tab变化 看对应typeIndex 没有值则index为0  否则index为存入值
-            if (+this.typeIndex !== -1) {
-                const num = this.mapJson[this.typeIndex];
-                if (num !== undefined) {
-                    this.index = num;
-                }
-                else {
-                    this.index = 0;
-                }
-            }
-            else {
-                this.index = 0;
-            }
+            this.index = 0;
         }
     },
 

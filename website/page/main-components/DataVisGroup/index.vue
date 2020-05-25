@@ -27,12 +27,6 @@
                             <td>不可为空，charts是一些列图的配置的集合。</td>
                         </tr>
                         <tr>
-                            <td>typeIndex</td>
-                            <td>一级大tab下标</td>
-                            <td>Number</td>
-                            <td>可选</td>
-                        </tr>
-                        <tr>
                             <td>display</td>
                             <td>展示方式,可以为tab或者inline</td>
                             <td>string</td>
