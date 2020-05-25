@@ -119,6 +119,10 @@ export default {
             type: String,
             default: ''
         },
+        typeIndex: {
+            type: Number,
+            default: -1
+        }
     },
     data() {
         return {
@@ -182,11 +186,25 @@ export default {
     },
 
     watch: {
-        charts(val) {
-            // 如果与上个长度不一致 下标为0 存入这个长度 与下一个做比较
-            if (val.length !== this.chartInfo[0]) {
+        index(val) {
+            // index 变话 把对应typeIndex 作为key index为值存json
+            if (+this.typeIndex !== -1) {
+                this.mapJson[this.typeIndex] = val;
+            }
+        },
+        charts() {
+            // 大tab变化 看对应typeIndex 没有值则index为0  否则index为存入值
+            if (+this.typeIndex !== -1) {
+                const num = this.mapJson[this.typeIndex];
+                if (num !== undefined) {
+                    this.index = num;
+                }
+                else {
+                    this.index = 0;
+                }
+            }
+            else {
                 this.index = 0;
-                this.chartInfo.splice(0, 1, val.length);
             }
         }
     },
