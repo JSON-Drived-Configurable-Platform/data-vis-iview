@@ -6,7 +6,6 @@
             :class="spinClasses"
             size="large"
         />
-        <div v-if="errmsg" class="dvis-ivu-chart-cn_middle">{{ errmsg }}</div>
         <div
             ref="dom"
             :class="classes"
@@ -80,13 +79,14 @@ export default {
             this.render();
         },
         render() {
-            const dataset = this.data || null;
+            const dataset = this.dataset || null;
             const chart = this.chart;
 
             // Notice dataset can be Objct or Array
             if (!dataset) {
                 return;
             }
+
             // 数据为空时，不加载并且提示数据为空
             if (
                 Object.keys(dataset).length === 0
@@ -98,6 +98,7 @@ export default {
 
             this.dom && this.dom.clear();
             this.dom = this.$refs.dom && echarts.init(this.$refs.dom, 'chartTheme');
+
             let option = {
                 toolbox: {
                     top: '-1%',

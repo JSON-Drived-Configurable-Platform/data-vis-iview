@@ -68,7 +68,6 @@ export default {
     },
     methods: {
         getData(params = {}) {
-            this.errmsg = '';
             this.loading = true;
             this.chartData = [];
             this.chartDataset = null;
@@ -92,16 +91,11 @@ export default {
                 this.remoteTotal = res.total || 0;
                 this.loading = false;
                 this.getDataFinished();
-            } else {
-                this.errmsg = res.errmsg || '数据加载错误';
-                this.loading = false;
             }
         },
         requestReject(reject) {
             // eslint-disable-next-line no-console
             console.log(reject);
-            this.errmsg = '数据加载失败';
-            this.loading = false;
         },
         requestMethod(url, finalParams) {
             if (this.requestInterceptor) {
