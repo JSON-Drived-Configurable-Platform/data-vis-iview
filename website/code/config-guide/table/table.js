@@ -40,11 +40,6 @@ const chart = {
             sortType: 'desc'
         },
         {
-            title: 'Money',
-            key: 'money',
-            defaultShow: true
-        },
-        {
             title: 'Name-api-1',
             key: 'name-1',
             defaultShow: true
