@@ -118,7 +118,7 @@ export default {
         apiBase: {
             type: String,
             default: ''
-        },
+        }
     },
     data() {
         return {
@@ -171,13 +171,19 @@ export default {
         mergedParamsContainer() {
             const model = this.model;
             const paramsContainer = this.paramsContainer;
-            return Object.assign({}, model, paramsContainer);
+            return Object.assign({}, paramsContainer, model);
         },
         tip() {
             return {
                 title: this.chart.tip && this.chart.tip.title,
                 content: this.chart.tip && this.chart.tip.content,
             };
+        }
+    },
+
+    watch: {
+        charts() {
+            this.index = 0;
         }
     },
 

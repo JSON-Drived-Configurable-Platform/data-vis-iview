@@ -207,11 +207,11 @@ export default {
             let widths = this.headerColumnsWidth || {};
             this.displayData.forEach((item = {}) => {
                 Object.keys(item).forEach(fieldName => {
-                    if (!widths[fieldName]) {
-                        widths[fieldName] = 80;
+                    // header中没有的不计算
+                    if (widths[fieldName]) {
+                        const width = calculateTableCellWidth(item[fieldName]);
+                        widths[fieldName] = Math.max(widths[fieldName], width);
                     }
-                    const width = calculateTableCellWidth(item[fieldName]);
-                    widths[fieldName] = Math.max(widths[fieldName], width);
                 });
             });
             return widths;
@@ -251,9 +251,11 @@ export default {
                     item.sortType = sort.order || 'normal';
                 }
                 else {
-                    item.sortType = 'normal';
+                    item.sortType = item.sortType || 'normal';
                 }
-                item.render = (h, params) => {
+                // 如果配置文件设置了render，则不能覆盖
+                // 支持通过item.renderDisabled, 设置该字段不需要转换
+                !item.render && !item.renderDisabled && (item.render = (h, params) => {
                     const key = params.column.key;
                     let value = params.row[key];
                     let text = value;
@@ -272,10 +274,9 @@ export default {
                         text = '-';
                     }
                     return h('span', {}, text);
-                };
+                });
                 return item;
             });
-
 
             // 增加扩展列
             if (this.isExpand) {
@@ -303,6 +304,9 @@ export default {
                 return;
             }
             this.selectedCustomColumns = this.columns.filter(item => item.defaultShow !== false).map(item => item.key);
+        },
+        data() {
+            this.pageNum = 1;
         }
     },
 

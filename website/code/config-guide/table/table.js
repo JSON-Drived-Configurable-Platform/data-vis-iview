@@ -21,6 +21,13 @@ const chart = {
             defaultShow: false
         },
         {
+            title: '整型（不格式化）',
+            renderDisabled: true,
+            key: 'money',
+            sortable: true,
+            defaultShow: false
+        },
+        {
             title: 'Address-api',
             key: 'address',
             defaultShow: true
@@ -28,12 +35,9 @@ const chart = {
         {
             title: 'Date-api',
             key: 'date',
-            defaultShow: true
-        },
-        {
-            title: 'Money',
-            key: 'money',
-            defaultShow: true
+            defaultShow: true,
+            sortable: true,
+            sortType: 'desc'
         },
         {
             title: 'Name-api-1',
@@ -67,18 +71,42 @@ const chart = {
             name: 'John Brown-api',
             age: 18,
             address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-            date: '2016-10-03',
+            date: '2016-10-09',
             money: 121212122112.22223,
             'name-1': 'John Brown-api',
             'age-1': 18,
             'address-1': 'New York No. 1 Lake Park-api',
-            'date-1': '2016-10-03',
+            'date-1': '2016-10-09',
             'money-1': 121212122112
         },
         {
             name: 'John Brown-api',
             age: 18,
             address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            date: '2016-10-08',
+            money: 121212122112,
+            'name-1': 'John Brown-api',
+            'age-1': 18,
+            'address-1': 'New York No. 1 Lake Park-api',
+            'date-1': '2016-10-08',
+            'money-1': 121212122112
+        },
+        {
+            name: 'John Brown-api',
+            age: 18,
+            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            date: '2016-10-02',
+            money: 121212122112,
+            'name-1': 'John Brown-api',
+            'age-1': 18,
+            'address-1': 'New York No. 1 Lake Park-api',
+            'date-1': '2016-10-02',
+            'money-1': 121212122112
+        },
+        {
+            name: 'John Brown-api',
+            age: 18,
+            address: '内容1',
             date: '2016-10-03',
             money: 121212122112,
             'name-1': 'John Brown-api',
@@ -90,31 +118,7 @@ const chart = {
         {
             name: 'John Brown-api',
             age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-            date: '2016-10-03',
-            money: 121212122112,
-            'name-1': 'John Brown-api',
-            'age-1': 18,
-            'address-1': 'New York No. 1 Lake Park-api',
-            'date-1': '2016-10-03',
-            'money-1': 121212122112
-        },
-        {
-            name: 'John Brown-api',
-            age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-            date: '2016-10-03',
-            money: 121212122112,
-            'name-1': 'John Brown-api',
-            'age-1': 18,
-            'address-1': 'New York No. 1 Lake Park-api',
-            'date-1': '2016-10-03',
-            'money-1': 121212122112
-        },
-        {
-            name: 'John Brown-api',
-            age: 18,
-            address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+            address: '内容1',
             date: '2016-10-03',
             money: 121212122112,
             'name-1': 'John Brown-api',

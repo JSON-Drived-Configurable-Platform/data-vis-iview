@@ -1,16 +1,16 @@
 import Vue from 'vue';
-import iView from 'iview';
+import iView from 'view-design';
 import VueRouter from 'vue-router';
 import DataVis from '../src/index';
 import VueI18n from 'vue-i18n';
 import formGeneratorIview from 'form-generator-iview';
 
-import App from './app.vue';
+import App from './App.vue';
 import router from './router';
 import store from './store';
 import Locales from './locale';
 
-import 'iview/dist/styles/iview.css';
+import 'view-design/dist/styles/iview.css';
 import '../src/style/index.less';
 import 'form-generator-iview/src/style/index.less';
 import axios from 'axios';
