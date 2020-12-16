@@ -40,6 +40,12 @@
                             <td>[]</td>
                         </tr>
                         <tr>
+                            <td>chart.customColumnsGroupsData</td>
+                            <td>自定义列分组名称</td>
+                            <td>Array</td>
+                            <td>[]</td>
+                        </tr>
+                        <tr>
                             <td>chart.columns</td>
                             <td>表头，其中的设置项可参考<a href="http://iview.talkingdata.com/#/components/table">iView Table 表格 column</a></td>
                             <td>Array</td>
@@ -85,7 +91,7 @@
                 </table>
             </div>
 
-            <Demo title="数据表格基本用法" vertical>
+            <Demo title="数据表格基本用法（自定义列分组展现，支持单选和全选）" vertical>
                 <div slot="demo">
                     <DataVisItem
                         :chart="code.simple.data.chart"

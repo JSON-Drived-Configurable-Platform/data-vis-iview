@@ -56,10 +56,44 @@
         <Modal
             v-if="customColumns.length > 0"
             v-model="showModal"
+            width="800"
             title="请选择要展示的列"
             footer-hide
         >
+            <Form 
+                v-if="computedGroupName.length > 0"
+                :label-width="60"
+            >
+                <Row>
+                    <FormItem 
+                        v-for="(item, index) in computedGroupsData" 
+                        :key="index" 
+                        :label="item.name"
+                    >
+                        <div style="border-bottom: 1px solid #e9e9e9;padding-bottom:6px;margin-bottom:6px;">
+                            <Checkbox
+                                :value="checkAll[index]"
+                                @click.prevent.native="handleCheckAll(index)"
+                            >
+                                全选
+                            </Checkbox>
+                        </div>
+                        <CheckboxGroup>
+                            <Checkbox
+                                v-for="option in item.data"
+                                :key="option.key"
+                                :label="option.key"
+                                :value="selectedGroupColumns[index] | isChecked(option.key)"
+                                @click.prevent.native="handleCustomColumnsGroupChange($event, index, option.key)"
+                            >
+                                {{ option.title }}
+                            </Checkbox>
+                        </CheckboxGroup>
+                    </FormItem>
+                </Row>
+            </Form>
             <CheckboxGroup
+                v-else
                 :value="selectedCustomColumns"
                 @on-change="handleCustomColumnsChange"
             >
@@ -82,6 +116,14 @@ import {addCommas, isNumber, calculateTableCellWidth} from '../utils/utils';
 import expandRow from './expandRow.vue';
 export default {
     name: 'ChartTable',
+    filters: {
+        isChecked(computedSelected, key) {
+            if (computedSelected) {
+                return computedSelected.includes(key);
+            }
+            return '';
+        }
+    },
     mixins: [dataGetter],
     props: {
         chart: {
@@ -91,7 +133,6 @@ export default {
             }
         }
     },
-
     data () {
         return {
             chartData: [],
@@ -99,12 +140,14 @@ export default {
             // maxWidth: 100,
             showModal: false,
             selectedCustomColumns: [],
+            selectedGroupColumns: [],
             remoteTotal: 0,
             pageSize: 10,
             pageNum: 1,
             loading: false,
             elWidth: 0,
             sort: {},
+            checkAll: [],
             remotePage: {
                 pageSize: 10,
                 pageNum: 1
@@ -143,6 +186,24 @@ export default {
             let chartColumns = this.chartColumns || [];
             let columns = this.chart.columns || [];
             return chartColumns.length > 0 ? chartColumns : columns;
+        },
+        computedGroupName() {
+            return this.chart.customColumnsGroupsData || [];
+        },
+        computedGroupsData() {
+            let aryData = [];
+            this.computedGroupName.forEach((item, index) => {
+                aryData[index] = {
+                    name: item,
+                    data: []
+                };
+                this.columns.forEach(ret => {
+                    if (item === ret.groupsName) {
+                        aryData[index].data.push(ret);
+                    }
+                });
+            });
+            return aryData;
         },
         data() {
             let data = this.chart.api ? this.chartData : this.chart.data;
@@ -313,6 +374,14 @@ export default {
     mounted() {
         this.elWidth = parseInt(window.getComputedStyle(this.$el).width);
         this.selectedCustomColumns = this.columns.filter(item => item.defaultShow !== false).map(item => item.key);
+        this.computedGroupsData.forEach((item, index) => {
+            this.selectedGroupColumns[index] = [];
+            item.data.forEach(ret => {
+                if (ret.defaultShow !== false) {
+                    this.selectedGroupColumns[index].push(ret.key);
+                }
+            });
+        });
         this.$watch('chart', () => {
             this.$nextTick(() => {
                 this.chartData = [];
@@ -369,6 +438,38 @@ export default {
 
         handleCustomColumnsChange(val) {
             this.selectedCustomColumns = val;
+        },
+
+        handleCheckAll (index) {
+            this.handleExtract(index);
+        },
+
+        handleExtract(index) {
+            this.computedGroupsData.forEach((inx) => {
+                this.selectedGroupColumns[index] = [];
+                this.checkAll[inx] = false;
+            });
+            this.checkAll[index] = !this.checkAll[index];
+            if (this.checkAll[index]) {
+                this.computedGroupsData[index].data.map(ret => {
+                    return this.selectedGroupColumns[index].push(ret.key);
+                });
+            } else {
+                this.selectedGroupColumns[index] = [];
+            }
+            this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
+        },
+
+        handleCustomColumnsGroupChange(ev, index, key) {
+            if (!this.selectedGroupColumns[index]) {
+                this.selectedGroupColumns[index] = [];
+            }
+            if (key && !this.selectedGroupColumns[index].includes(key)) {
+                this.selectedGroupColumns[index].push(key);
+            } else {
+                this.selectedGroupColumns[index] = this.selectedGroupColumns[index].filter(i => i !== key);
+            }
+            this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
         }
     }
 };

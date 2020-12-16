@@ -6,73 +6,15 @@ const simpleCharts = [
         'label': '年活跃',
         'data': [
             {
-                'label': '活跃用户数',
-                'value': 22246150,
-                'unit': '人',
-                'showChange': false
+                'label': '今日曝光',
+                'value': 22246150
             },
             {
-                'label': '日环比',
-                'value': -4.88,
-                'unit': '%',
-                'showChange': true
-            },
-            {
-                'label': '周同比',
-                'value': -1.36,
-                'unit': '%',
-                'showChange': true
+                'label': '今日点击',
+                'value': 22246150
             }
         ],
-    },
-    {
-        'type': 'card',
-        'label':  '年活跃',
-        'data':  [
-            {
-                'label': '活跃用户数',
-                'value': 22246150,
-                'unit': '人',
-                'showChange': false
-            },
-            {
-                'label': '日环比',
-                'value': -4.88,
-                'unit': '%',
-                'showChange': true
-            },
-            {
-                'label': '周同比',
-                'value': -1.36,
-                'unit': '%',
-                'showChange': true
-            }
-        ],
-    },
-    {
-        'type': 'card',
-        'label':  '年活跃',
-        'data':  [
-            {
-                'label': '活跃用户数',
-                'value': 22246150,
-                'unit': '人',
-                'showChange': false
-            },
-            {
-                'label': '日环比',
-                'value': -4.88,
-                'unit': '%',
-                'showChange': true
-            },
-            {
-                'label': '周同比',
-                'value': -1.36,
-                'unit': '%',
-                'showChange': true
-            }
-        ],
-    },
+    }
 ];
 
 
