@@ -61,7 +61,7 @@
             footer-hide
         >
             <Form 
-                v-if="computedGroupName.length > 0"
+                v-if="computedGroupsData.length > 0"
                 :label-width="60"
             >
                 <Row>
@@ -92,19 +92,24 @@
                     </FormItem>
                 </Row>
             </Form>
-            <CheckboxGroup
-                v-else
-                :value="selectedCustomColumns"
-                @on-change="handleCustomColumnsChange"
+            <Divider />
+            <div
+                v-if="customColumnsOptions.length > 0" 
+                style="margin-left:59px"
             >
-                <Checkbox
-                    v-for="option in customColumnsOptions"
-                    :key="option.key"
-                    :label="option.key"
+                <CheckboxGroup
+                    :value="selectedCustomColumns"
+                    @on-change="handleCustomColumnsChange"
                 >
-                    {{ option.title }}
-                </Checkbox>
-            </CheckboxGroup>
+                    <Checkbox
+                        v-for="option in customColumnsOptions"
+                        :key="option.key"
+                        :label="option.key"
+                    >
+                        {{ option.title }}
+                    </Checkbox>
+                </CheckboxGroup>
+            </div>
         </Modal>
     </div>
 </template>
@@ -137,6 +142,7 @@ export default {
         return {
             chartData: [],
             chartColumns: [],
+            oldValues: [],
             // maxWidth: 100,
             showModal: false,
             selectedCustomColumns: [],
@@ -187,24 +193,6 @@ export default {
             let columns = this.chart.columns || [];
             return chartColumns.length > 0 ? chartColumns : columns;
         },
-        computedGroupName() {
-            return this.chart.customColumnsGroupsData || [];
-        },
-        computedGroupsData() {
-            let aryData = [];
-            this.computedGroupName.forEach((item, index) => {
-                aryData[index] = {
-                    name: item,
-                    data: []
-                };
-                this.columns.forEach(ret => {
-                    if (item === ret.groupsName) {
-                        aryData[index].data.push(ret);
-                    }
-                });
-            });
-            return aryData;
-        },
         data() {
             let data = this.chart.api ? this.chartData : this.chart.data;
             let sort = this.sort || {};
@@ -248,8 +236,33 @@ export default {
         customColumns() {
             return this.chart.customColumns || [];
         },
+        computedGroupsData() {
+            let aryData = [];
+            this.customColumns.forEach((item, index) => {
+                if (typeof item === 'object') {
+                    aryData[index] = {
+                        name: item.groupName,
+                        data: []
+                    };
+                    this.columns.forEach(ret => {
+                        if (item.columns.includes(ret.key)) {
+                            aryData[index].data.push(ret);
+                        }
+                    });
+                }
+            });
+            return aryData;
+        },
         customColumnsOptions() {
-            return this.columns.filter(item => this.customColumns.includes(item.key)) || [];
+            let columnsString = [];
+            this.customColumns.forEach(ret => {
+                this.columns.forEach(item => {
+                    if (typeof ret === 'string' && ret === item.key){
+                        columnsString.push(item);
+                    }
+                });
+            });
+            return columnsString;
         },
         displayData() {
             if (this.isRemotePage) {
@@ -376,10 +389,12 @@ export default {
         this.selectedCustomColumns = this.columns.filter(item => item.defaultShow !== false).map(item => item.key);
         this.computedGroupsData.forEach((item, index) => {
             this.selectedGroupColumns[index] = [];
+            this.oldValues[index] = [];
             item.data.forEach(ret => {
                 if (ret.defaultShow !== false) {
                     this.selectedGroupColumns[index].push(ret.key);
                 }
+                this.oldValues[index].push(ret.key);
             });
         });
         this.$watch('chart', () => {
@@ -443,7 +458,6 @@ export default {
         handleCheckAll (index) {
             this.handleExtract(index);
         },
-
         handleExtract(index) {
             this.computedGroupsData.forEach((inx) => {
                 this.selectedGroupColumns[index] = [];
@@ -459,7 +473,6 @@ export default {
             }
             this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
         },
-
         handleCustomColumnsGroupChange(ev, index, key) {
             if (!this.selectedGroupColumns[index]) {
                 this.selectedGroupColumns[index] = [];
@@ -468,6 +481,11 @@ export default {
                 this.selectedGroupColumns[index].push(key);
             } else {
                 this.selectedGroupColumns[index] = this.selectedGroupColumns[index].filter(i => i !== key);
+            }
+            if (this.selectedGroupColumns[index].length === this.oldValues[index].length) {
+                this.checkAll[index] = true;
+            } else {
+                this.checkAll[index] = false;
             }
             this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
         }

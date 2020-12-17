@@ -6,9 +6,21 @@ const chart = {
     'type':'table',
     'hideElevator': true,
     'hideSizer': true,
-    'customColumns': ['name', 'age', 'address', 'money', 'name-1', 'age-1', 'address-1', 'money-1'],
+    // 'customColumns': ['name', 'age', 'address', 'money', 'name-1', 'age-1', 'address-1', 'money-1'],
     'downloadAble': true,
     'customColumnsGroupsData': ['保定', '北京', '中国', '美国'],
+    'customColumns': [
+        {
+            groupName: '保定',
+            columns: ['name', 'age', 'money', 'address']
+        },
+        {
+            groupName: '北京',
+            columns: ['date', 'name-1']
+        },
+        'money-1',
+        'age-1'
+    ],
     'columns': [
         {
             title: 'Name-api',
