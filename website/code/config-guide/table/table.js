@@ -8,7 +8,6 @@ const chart = {
     'hideSizer': true,
     // 'customColumns': ['name', 'age', 'address', 'money', 'name-1', 'age-1', 'address-1', 'money-1'],
     'downloadAble': true,
-    'customColumnsGroupsData': ['保定', '北京', '中国', '美国'],
     'customColumns': [
         {
             groupName: '保定',
@@ -25,68 +24,58 @@ const chart = {
         {
             title: 'Name-api',
             key: 'name',
-            defaultShow: true,
-            groupsName: '中国'
+            defaultShow: true
         },
         {
             title: 'Age-api',
             key: 'age',
             sortable: true,
-            defaultShow: false,
-            groupsName: '北京'
+            defaultShow: false
         },
         {
             title: '整型（不格式化）',
             renderDisabled: true,
             key: 'money',
             sortable: true,
-            defaultShow: false,
-            groupsName: '北京'
+            defaultShow: false
         },
         {
             title: 'Address-api',
             key: 'address',
-            defaultShow: true,
-            groupsName: '美国'
+            defaultShow: true
         },
         {
             title: 'Date-api',
             key: 'date',
             defaultShow: true,
             sortable: true,
-            sortType: 'desc',
-            groupsName: '北京'
+            sortType: 'desc'
         },
         {
             title: 'Name-api-1',
             key: 'name-1',
-            defaultShow: true,
-            groupsName: '保定'
+            defaultShow: true
         },
         {
             title: 'Age-api-1',
             key: 'age-1',
             sortable: true,
-            defaultShow: false,
-            groupsName: '保定'
+            defaultShow: false
         },
         {
             title: 'Address-api-1',
             key: 'address-1',
-            defaultShow: true,
-            groupsName: '保定'
+            defaultShow: true
         },
         {
             title: 'Date-api-1',
             key: 'date-1',
-            defaultShow: true,
-            groupsName: '保定'
+            defaultShow: true
         },
         {
             title: 'Money-1',
             key: 'money-1',
-            defaultShow: true,
-            groupsName: '保定'
+            defaultShow: true
         }
     ],
     'data': [
