@@ -465,6 +465,7 @@ export default {
         handleCheckAll (index) {
             this.handleExtract(index);
         },
+
         handleExtract(index) {
             this.computedGroupsData.forEach((inx) => {
                 this.selectedGroupColumns[index] = [];
@@ -481,6 +482,7 @@ export default {
             this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
 
         },
+        
         handleCustomColumnsGroupChange(ev, index, key) {
             if (!this.selectedGroupColumns[index]) {
                 this.selectedGroupColumns[index] = [];
