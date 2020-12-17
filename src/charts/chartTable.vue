@@ -56,21 +56,61 @@
         <Modal
             v-if="customColumns.length > 0"
             v-model="showModal"
+            width="800"
             title="请选择要展示的列"
             footer-hide
         >
-            <CheckboxGroup
-                :value="selectedCustomColumns"
-                @on-change="handleCustomColumnsChange"
+            <Form 
+                v-if="computedGroupsData.length > 0"
+                :label-width="60"
             >
-                <Checkbox
-                    v-for="option in customColumnsOptions"
-                    :key="option.key"
-                    :label="option.key"
+                <Row>
+                    <FormItem 
+                        v-for="(item, index) in computedGroupsData" 
+                        :key="index" 
+                        :label="item.name"
+                    >
+                        <Divider v-if="item.name === ''" dashed />
+                        <div v-if="item.name !== ''" style="border-bottom: 1px solid #e9e9e9;padding-bottom:6px;margin-bottom:6px;">
+                            
+                            <Checkbox
+                                :value="checkAll[index]"
+                                @click.prevent.native="handleCheckAll(index)"
+                            >
+                                全选
+                            </Checkbox>
+                        </div>
+                        <CheckboxGroup>
+                            <Checkbox
+                                v-for="option in item.data"
+                                :key="option.key"
+                                :label="option.key"
+                                :value="selectedGroupColumns[index] | isChecked(option.key)"
+                                @click.prevent.native="handleCustomColumnsGroupChange($event, index, option.key)"
+                            >
+                                {{ option.title }}
+                            </Checkbox>
+                        </CheckboxGroup>
+                    </FormItem>
+                </Row>
+            </Form>
+            <!-- <div
+                v-else
+                style="margin-left:59px"
+            >
+                <CheckboxGroup
+                    :value="selectedCustomColumns"
+                    @on-change="handleCustomColumnsChange"
                 >
-                    {{ option.title }}
-                </Checkbox>
-            </CheckboxGroup>
+                    <Checkbox
+                        v-for="option in customColumnsOptions"
+                        :key="option.key"
+                        :label="option.key"
+                    >
+                        {{ option.title }}
+                    </Checkbox>
+                </CheckboxGroup>
+            </div> -->
         </Modal>
     </div>
 </template>
@@ -82,6 +122,14 @@ import {addCommas, isNumber, calculateTableCellWidth} from '../utils/utils';
 import expandRow from './expandRow.vue';
 export default {
     name: 'ChartTable',
+    filters: {
+        isChecked(computedSelected, key) {
+            if (computedSelected) {
+                return computedSelected.includes(key);
+            }
+            return '';
+        }
+    },
     mixins: [dataGetter],
     props: {
         chart: {
@@ -91,20 +139,22 @@ export default {
             }
         }
     },
-
     data () {
         return {
             chartData: [],
             chartColumns: [],
+            oldValues: [],
             // maxWidth: 100,
             showModal: false,
             selectedCustomColumns: [],
+            selectedGroupColumns: [],
             remoteTotal: 0,
             pageSize: 10,
             pageNum: 1,
             loading: false,
             elWidth: 0,
             sort: {},
+            checkAll: [],
             remotePage: {
                 pageSize: 10,
                 pageNum: 1
@@ -187,8 +237,36 @@ export default {
         customColumns() {
             return this.chart.customColumns || [];
         },
-        customColumnsOptions() {
-            return this.columns.filter(item => this.customColumns.includes(item.key)) || [];
+        // customColumnsOptions() {
+        //     return this.columns.filter(item => this.customColumns.includes(item.key)) || [];
+        // },
+        computedGroupsData() {
+            let aryData = [];
+            this.customColumns.forEach((item, index) => {
+                if (typeof item === 'object') {
+                    aryData[index] = {
+                        name: item.groupName,
+                        data: []
+                    };
+                    this.columns.forEach(ret => {
+                        if (item.columns.includes(ret.key)) {
+                            aryData[index].data.push(ret);
+                        }
+                    });
+                } else {
+                    aryData[index] = {
+                        name: '',
+                        data: []
+                    };
+                    this.columns.forEach(ret => {
+                        if (typeof item === 'string' && item === ret.key) {
+                            aryData[index].data.push(ret);
+                        }
+                    });
+                    
+                }
+            });
+            return aryData;
         },
         displayData() {
             if (this.isRemotePage) {
@@ -226,10 +304,8 @@ export default {
         },
         displayColumns() {
             let selectedCustomColumns = this.selectedCustomColumns;
-            let customColumns = this.customColumns;
             let columns = this.columns.filter(
-                item => !customColumns.includes(item.key)
-                || selectedCustomColumns.includes(item.key)
+                item => selectedCustomColumns.includes(item.key)
             ).slice();
             let columnsWidth = this.columnsWidth || {};
             let expandWidth = this.isExpand ? 30 : 0;
@@ -313,6 +389,21 @@ export default {
     mounted() {
         this.elWidth = parseInt(window.getComputedStyle(this.$el).width);
         this.selectedCustomColumns = this.columns.filter(item => item.defaultShow !== false).map(item => item.key);
+        this.computedGroupsData.forEach((item, index) => {
+            this.selectedGroupColumns[index] = [];
+            this.oldValues[index] = [];
+            item.data.forEach(ret => {
+                if (ret.defaultShow !== false) {
+                    this.selectedGroupColumns[index].push(ret.key);
+                }
+                this.oldValues[index].push(ret.key);
+            });
+        });
+        this.oldValues.forEach((item, index) => {
+            if (item.length === this.selectedGroupColumns[index].length) {
+                this.checkAll[index] = true;
+            }
+        });
         this.$watch('chart', () => {
             this.$nextTick(() => {
                 this.chartData = [];
@@ -369,6 +460,44 @@ export default {
 
         handleCustomColumnsChange(val) {
             this.selectedCustomColumns = val;
+        },
+
+        handleCheckAll (index) {
+            this.handleExtract(index);
+        },
+
+        handleExtract(index) {
+            this.computedGroupsData.forEach((inx) => {
+                this.selectedGroupColumns[index] = [];
+                this.checkAll[inx] = false;
+            });
+            this.checkAll[index] = !this.checkAll[index];
+            if (this.checkAll[index]) {
+                this.computedGroupsData[index].data.map(ret => {
+                    return this.selectedGroupColumns[index].push(ret.key);
+                });
+            } else {
+                this.selectedGroupColumns[index] = [];
+            }
+            this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
+
+        },
+        
+        handleCustomColumnsGroupChange(ev, index, key) {
+            if (!this.selectedGroupColumns[index]) {
+                this.selectedGroupColumns[index] = [];
+            }
+            if (key && !this.selectedGroupColumns[index].includes(key)) {
+                this.selectedGroupColumns[index].push(key);
+            } else {
+                this.selectedGroupColumns[index] = this.selectedGroupColumns[index].filter(i => i !== key);
+            }
+            if (this.selectedGroupColumns[index].length === this.oldValues[index].length) {
+                this.checkAll[index] = true;
+            } else {
+                this.checkAll[index] = false;
+            }
+            this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
         }
     }
 };

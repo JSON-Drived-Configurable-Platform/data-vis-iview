@@ -83,7 +83,6 @@ simple.data = {
 
 simple.code = `
 const charts = ${JSON.stringify(simpleCharts, null, 4)};
-
 <template>
     <DataVisGroup
         :charts='charts'

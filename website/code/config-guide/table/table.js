@@ -6,69 +6,90 @@ const chart = {
     'type':'table',
     'hideElevator': true,
     'hideSizer': true,
-    'customColumns': ['name', 'age', 'address', 'money', 'name-1', 'age-1', 'address-1', 'money-1'],
+    // 'customColumns': ['name', 'age', 'address', 'money', 'name-1', 'age-1', 'address-1', 'money-1'],
     'downloadAble': true,
+    'customColumnsGroupsData': ['保定', '北京', '中国', '美国'],
+    'customColumns': [
+        {
+            groupName: '保定',
+            columns: ['name', 'age']
+        },
+        {
+            groupName: '北京',
+            columns: ['money', 'address']
+        }
+    ],
     'columns': [
         {
             title: 'Name-api',
             key: 'name',
-            defaultShow: true
+            defaultShow: true,
+            groupsName: '中国'
         },
         {
             title: 'Age-api',
             key: 'age',
             sortable: true,
-            defaultShow: false
+            defaultShow: false,
+            groupsName: '北京'
         },
         {
             title: '整型（不格式化）',
             renderDisabled: true,
             key: 'money',
             sortable: true,
-            defaultShow: false
+            defaultShow: false,
+            groupsName: '北京'
         },
         {
             title: 'Address-api',
             key: 'address',
-            defaultShow: true
+            defaultShow: true,
+            groupsName: '美国'
         },
         {
             title: 'Date-api',
             key: 'date',
             defaultShow: true,
             sortable: true,
-            sortType: 'desc'
+            sortType: 'desc',
+            groupsName: '北京'
         },
         {
             title: 'Name-api-1',
             key: 'name-1',
-            defaultShow: true
+            defaultShow: true,
+            groupsName: '保定'
         },
         {
             title: 'Age-api-1',
             key: 'age-1',
             sortable: true,
-            defaultShow: false
+            defaultShow: false,
+            groupsName: '保定'
         },
         {
             title: 'Address-api-1',
             key: 'address-1',
-            defaultShow: true
+            defaultShow: true,
+            groupsName: '保定'
         },
         {
             title: 'Date-api-1',
             key: 'date-1',
-            defaultShow: true
+            defaultShow: true,
+            groupsName: '保定'
         },
         {
             title: 'Money-1',
             key: 'money-1',
-            defaultShow: true
+            defaultShow: true,
+            groupsName: '保定'
         }
     ],
     'data': [
         {
-            name: 'John Brown-api',
+            name: 'John Brown-api111111111',
             age: 18,
             address: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
             date: '2016-10-09',
