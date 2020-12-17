@@ -40,12 +40,6 @@
                             <td>[]</td>
                         </tr>
                         <tr>
-                            <td>chart.customColumnsGroupsData</td>
-                            <td>自定义列分组名称</td>
-                            <td>Array</td>
-                            <td>[]</td>
-                        </tr>
-                        <tr>
                             <td>chart.columns</td>
                             <td>表头，其中的设置项可参考<a href="http://iview.talkingdata.com/#/components/table">iView Table 表格 column</a></td>
                             <td>Array</td>

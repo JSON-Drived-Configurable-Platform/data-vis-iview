@@ -397,6 +397,11 @@ export default {
                 this.oldValues[index].push(ret.key);
             });
         });
+        this.oldValues.forEach((item, index) => {
+            if (item.length === this.selectedGroupColumns[index].length) {
+                this.checkAll[index] = true;
+            }
+        });
         this.$watch('chart', () => {
             this.$nextTick(() => {
                 this.chartData = [];
