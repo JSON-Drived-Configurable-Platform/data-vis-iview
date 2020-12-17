@@ -70,7 +70,9 @@
                         :key="index" 
                         :label="item.name"
                     >
-                        <div style="border-bottom: 1px solid #e9e9e9;padding-bottom:6px;margin-bottom:6px;">
+                        <Divider v-if="item.name === ''" dashed />
+                        <div v-if="item.name !== ''" style="border-bottom: 1px solid #e9e9e9;padding-bottom:6px;margin-bottom:6px;">
+                            
                             <Checkbox
                                 :value="checkAll[index]"
                                 @click.prevent.native="handleCheckAll(index)"
@@ -92,9 +94,8 @@
                     </FormItem>
                 </Row>
             </Form>
-            <Divider />
-            <div
-                v-if="customColumnsOptions.length > 0" 
+            <!-- <div
+                v-else
                 style="margin-left:59px"
             >
                 <CheckboxGroup
@@ -109,7 +110,7 @@
                         {{ option.title }}
                     </Checkbox>
                 </CheckboxGroup>
-            </div>
+            </div> -->
         </Modal>
     </div>
 </template>
@@ -236,6 +237,9 @@ export default {
         customColumns() {
             return this.chart.customColumns || [];
         },
+        // customColumnsOptions() {
+        //     return this.columns.filter(item => this.customColumns.includes(item.key)) || [];
+        // },
         computedGroupsData() {
             let aryData = [];
             this.customColumns.forEach((item, index) => {
@@ -249,20 +253,20 @@ export default {
                             aryData[index].data.push(ret);
                         }
                     });
+                } else {
+                    aryData[index] = {
+                        name: '',
+                        data: []
+                    };
+                    this.columns.forEach(ret => {
+                        if (typeof item === 'string' && item === ret.key) {
+                            aryData[index].data.push(ret);
+                        }
+                    });
+                    
                 }
             });
             return aryData;
-        },
-        customColumnsOptions() {
-            let columnsString = [];
-            this.customColumns.forEach(ret => {
-                this.columns.forEach(item => {
-                    if (typeof ret === 'string' && ret === item.key){
-                        columnsString.push(item);
-                    }
-                });
-            });
-            return columnsString;
         },
         displayData() {
             if (this.isRemotePage) {
@@ -300,10 +304,8 @@ export default {
         },
         displayColumns() {
             let selectedCustomColumns = this.selectedCustomColumns;
-            let customColumns = this.customColumns;
             let columns = this.columns.filter(
-                item => !customColumns.includes(item.key)
-                || selectedCustomColumns.includes(item.key)
+                item => selectedCustomColumns.includes(item.key)
             ).slice();
             let columnsWidth = this.columnsWidth || {};
             let expandWidth = this.isExpand ? 30 : 0;
@@ -477,6 +479,7 @@ export default {
                 this.selectedGroupColumns[index] = [];
             }
             this.selectedCustomColumns = this.selectedGroupColumns.flat(Infinity);
+
         },
         handleCustomColumnsGroupChange(ev, index, key) {
             if (!this.selectedGroupColumns[index]) {
