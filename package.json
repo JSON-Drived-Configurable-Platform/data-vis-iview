@@ -15,7 +15,7 @@
     "url": "https://github.com/JSON-Drived-Configurable-Platform/data-vis-iview"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "echarts": "^4.2.1",
     "file-saver": "^2.0.1",
     "form-generator-iview": "^1.0.0-beta",
