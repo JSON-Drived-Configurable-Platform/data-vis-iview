@@ -19,7 +19,7 @@
     "echarts": "^4.2.1",
     "file-saver": "^2.0.1",
     "form-generator-iview": "^1.0.0-beta",
-    "xlsx": "^0.14.3"
+    "xlsx": "^0.17.0"
   },
   "deprecated": false,
   "description": "A data-report generator with json schema based on iview ui and echart",
